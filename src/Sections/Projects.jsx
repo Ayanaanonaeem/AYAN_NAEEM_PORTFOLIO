@@ -10,14 +10,26 @@ const projects = [
     category: "FINAL YEAR PROJECT",
     description:
       "A collaborative online coding platform where developers can write, execute, and test code directly in the browser.",
-    image: "/projects/streamxcoder.png",
+    image: "/projects/streamXcoder.png",
     tech: ["React", "Tailwind CSS", "Firebase", "Judge0 API"],
     live: "https://streamxcoder.onrender.com",
     github: "https://github.com/ssuetfyp2022f/streamXcoder",
     color: "#00e5ff",
   },
   {
-    number: "02",
+  number: "02",
+  name: "Netflix Landing Page",
+  category: "FRONTEND PROJECT",
+  description:
+    "A Netflix-inspired landing page recreated using HTML and CSS, focusing on a cinematic dark UI, clean layouts, responsive styling, and a visually engaging streaming platform design.",
+  image: "/projects/netflix.png",
+  tech: ["HTML5", "CSS3", "Responsive Design"],
+  live: "https://ayanaanonaeem.github.io/Netflix/",
+  github: "https://github.com/Ayanaanonaeem",
+  color: "#e50914",
+},
+  {
+    number: "03",
     name: "FITX",
     category: "GYM WEBSITE",
     description:
@@ -29,17 +41,17 @@ const projects = [
     color: "#ff4545",
   },
   {
-    number: "03",
-    name: "Developer Portfolio",
-    category: "PERSONAL PROJECT",
-    description:
-      "An interactive developer portfolio with 3D visuals, smooth animations, and a futuristic interface.",
-    image: "/projects/portfolio.png",
-    tech: ["React", "Three.js", "Framer Motion", "Tailwind"],
-    live: "#home",
-    github: "https://github.com/Ayanaanonaeem",
-    color: "#8b5cf6",
-  },
+  number: "04",
+  name: "Todo Project",
+  category: "PERSONAL PROJECT",
+  description:
+    "A responsive task management application built with React and Redux for centralized state management, allowing users to add, complete, delete, and manage tasks through a clean and intuitive interface.",
+  image: "/projects/redux-todo.png",
+  tech: ["React", "Redux", "JavaScript", "Tailwind CSS"],
+  live: "#home",
+  github: "https://github.com/Ayanaanonaeem",
+  color: "#8b5cf6",
+},
 ];
 
 function ProjectCard({ project, index }) {
@@ -70,7 +82,7 @@ function ProjectCard({ project, index }) {
           </span>
         </div>
 
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[18/8] overflow-hidden">
           <img
             src={project.image}
             alt={`${project.name} project preview`}
