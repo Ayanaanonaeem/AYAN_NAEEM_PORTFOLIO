@@ -1,8 +1,12 @@
-
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshTransmissionMaterial, OrbitControls, Sparkles } from "@react-three/drei";
+import {
+  Float,
+  MeshTransmissionMaterial,
+  OrbitControls,
+  Sparkles,
+} from "@react-three/drei";
 import { FaCode, FaLaptopCode, FaLightbulb, FaRocket } from "react-icons/fa";
 
 const principles = [
@@ -32,71 +36,44 @@ const principles = [
   },
 ];
 
+
 function Crystal() {
-  const meshRef = useRef(null);
-  const groupRef = useRef(null);
-
-  useFrame((state, delta) => {
-    if (!groupRef.current) return;
-
-    const { pointer } = state;
-
-    // Mouse ke saath smooth movement
-    groupRef.current.rotation.y +=
-      (pointer.x * 0.65 - groupRef.current.rotation.y) *
-      delta * 3;
-
-    groupRef.current.rotation.x +=
-      (-pointer.y * 0.45 - groupRef.current.rotation.x) *
-      delta * 3;
-
-    // Cursor ke saath halka position movement
-    groupRef.current.position.x +=
-      (pointer.x * 0.35 - groupRef.current.position.x) *
-      delta * 3;
-
-    groupRef.current.position.y +=
-      (pointer.y * 0.25 - groupRef.current.position.y) *
-      delta * 3;
-  });
-
   return (
-    <group ref={groupRef}>
-      <Float speed={2.5} rotationIntensity={0.3} floatIntensity={0.5}>
-        <mesh ref={meshRef}>
-          <icosahedronGeometry args={[1.15, 1]} />
-
-          <MeshTransmissionMaterial
-            backside
-            samples={4}
-            resolution={256}
-            thickness={0.8}
-            roughness={0.12}
-            chromaticAberration={0.08}
-            anisotropy={0.3}
-            color="#345678"
-          />
-        </mesh>
-      </Float>
-    </group>
+    <Float speed={1} rotationIntensity={0.15} floatIntensity={0.2}>
+      <mesh rotation={[0.2, 0.3, 0]}>
+        <icosahedronGeometry args={[1.15, 0]} />
+        <meshStandardMaterial
+          color="#00D9FF"
+          emissive="#0077FF"
+          emissiveIntensity={0.8}
+          metalness={0.4}
+          roughness={0.3}
+          flatShading
+        />
+      </mesh>
+    </Float>
   );
 }
+
 
 function AboutScene() {
   return (
     <>
-      <ambientLight intensity={1.2} />
-      <pointLight position={[3, 3, 3]} intensity={35} color="#00d9ff" />
-      <pointLight position={[-3, -2, 2]} intensity={25} color="#414dff" />
+      <ambientLight intensity={1.5} />
+
+      <pointLight position={[3, 3, 3]} intensity={25} color="#00D9FF" />
+
+      <pointLight position={[-3, -2, 2]} intensity={20} color="#635BFF" />
+
       <Crystal />
+
       <Sparkles
-        count={70}
-        scale={4.5}
-        size={2}
-        speed={0.25}
-        color="#8beaff"
-        opacity={0.7}
-      />
+  count={20}
+  scale={3.5}
+  size={1.5}
+  speed={0.15}
+  color="#00D9FF"
+/>
     </>
   );
 }
@@ -183,8 +160,8 @@ export default function About() {
               <p className="mt-5 text-sm leading-8 text-gray-400 sm:text-base">
                 I work with React to transform ideas into responsive interfaces,
                 combining thoughtful UI design with smooth motion and meaningful
-                interactions. I'm continuously growing my skills across the
-                MERN stack and exploring the possibilities of 3D on the web.
+                interactions. I'm continuously growing my skills across the MERN
+                stack and exploring the possibilities of 3D on the web.
               </p>
 
               <p className="mt-5 text-sm leading-8 text-gray-400 sm:text-base">
@@ -222,7 +199,6 @@ export default function About() {
 
           {/* Three.js crystal */}
           <motion.div
-            style={{ y: orbY, rotate: orbRotate }}
             className="relative mx-auto h-[330px] w-full max-w-[440px] sm:h-[420px]"
           >
             <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.1] blur-[75px] sm:h-72 sm:w-72" />
@@ -236,11 +212,7 @@ export default function About() {
               gl={{ alpha: true, antialias: true }}
             >
               <AboutScene />
-              <OrbitControls
-                enableZoom={false}
-                enablePan={false}
-                rotateSpeed={0.4}
-              />
+              
             </Canvas>
 
             <motion.div
@@ -258,7 +230,11 @@ export default function About() {
 
             <motion.div
               animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="absolute bottom-[17%] right-0 rounded-xl border border-white/10 bg-[#0b111d]/85 px-4 py-3 backdrop-blur-xl"
             >
               <p className="text-[9px] tracking-[0.2em] text-gray-500">
@@ -322,9 +298,7 @@ export default function About() {
                     </span>
                   </div>
 
-                  <h4 className="text-lg font-bold text-white">
-                    {item.title}
-                  </h4>
+                  <h4 className="text-lg font-bold text-white">{item.title}</h4>
                   <p className="mt-3 text-sm leading-7 text-gray-500 transition-colors group-hover:text-gray-400">
                     {item.description}
                   </p>
