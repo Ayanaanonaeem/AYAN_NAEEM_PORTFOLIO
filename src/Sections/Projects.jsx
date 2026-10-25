@@ -52,6 +52,18 @@ const projects = [
   github: "https://github.com/Ayanaanonaeem",
   color: "#8b5cf6",
 },
+{
+  number: "05",
+  title: "Shopora",
+  category: "E-Commerce Web Application",
+  description:
+    "A modern e-commerce web application built with React, featuring add-to-cart and remove-from-cart functionality, interactive product browsing, and a clean, user-friendly shopping experience.",
+  image: "/projects/shopora.png",
+  tech: ["React", "JavaScript", "Tailwind CSS"],
+  live: "https://shopora-ecommerce-tawny.vercel.app/",
+  github: "#",
+  color: "#00D9FF",
+},
 ];
 
 function ProjectCard({ project, index }) {
