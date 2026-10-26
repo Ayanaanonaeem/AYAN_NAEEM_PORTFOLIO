@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Header from "./Components/Header";
 import Hero from "./Components/Hero";
@@ -6,7 +7,6 @@ import Skills from "./Components/Skills";
 import Projects from "./Components/Projects";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
-import ThemeSwitcher from "./Components/ThemeSwitcher";
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
@@ -20,8 +20,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen">
-      <ThemeSwitcher theme={theme} setTheme={setTheme} />
-      <Header />
+      <Header theme={theme} setTheme={setTheme} />
+
       <main>
         <Hero />
         <About />
@@ -29,6 +29,7 @@ export default function App() {
         <Projects />
         <Contact />
       </main>
+
       <Footer />
     </div>
   );

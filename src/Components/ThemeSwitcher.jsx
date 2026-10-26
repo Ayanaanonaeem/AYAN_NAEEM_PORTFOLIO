@@ -420,17 +420,17 @@ function animateThemeChange(newTheme, setTheme, setAnimating) {
       },
     ],
     {
-      duration: 1050,
-      easing: "cubic-bezier(0.76, 0, 0.24, 1)",
-      fill: "forwards",
-    }
+  duration: 650,
+  easing: "cubic-bezier(0.76, 0, 0.24, 1)",
+  fill: "forwards",
+}
   );
 
   // Change the actual theme after the wipe covers the page.
   const switchTimer = window.setTimeout(() => {
     root.setAttribute("data-theme", newTheme);
     setTheme(newTheme);
-  }, 470);
+  }, 300);
 
   animation.onfinish = () => {
     window.clearTimeout(switchTimer);
@@ -496,11 +496,11 @@ export default function ThemeSwitcher({ theme, setTheme }) {
 
     window.setTimeout(() => {
       animationLock.current = false;
-    }, 1100);
+    }, 700);
   };
 
   return (
-    <div className="fixed right-4 top-4 z-[100]">
+   <div className="relative z-[100] shrink-0">
       <button
         ref={buttonRef}
         type="button"

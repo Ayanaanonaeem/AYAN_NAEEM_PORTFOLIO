@@ -2,6 +2,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
 import gsap from "gsap";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -11,7 +12,7 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Header() {
+export default function Header({theme, setTheme}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("Home");
@@ -386,94 +387,52 @@ export default function Header() {
           })}
         </div>
 
-        {/* Right side actions */}
+        
 
-        <div className="flex shrink-0 items-center gap-2">
+{/* Right side actions */}
+<div className="relative z-[100] flex shrink-0 items-center gap-2">
+  {/* Availability indicator */}
+  <div className="hidden items-center gap-2 rounded-full border border-ink-muted/15 bg-accent/5 px-3 py-2 lg:flex">
+    <span className="relative flex h-2 w-2">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-40" />
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+    </span>
+    <span className="text-[11px] font-semibold text-ink-muted">
+      Open to opportunities
+    </span>
+  </div>
 
-          {/* Availability indicator */}
+  {/* Hire Me */}
+  <a
+    href="#contact"
+    onClick={() => handleNavigation("Contact")}
+    className="group hidden items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-dark px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 sm:inline-flex"
+  >
+    Hire Me
+    <ArrowUpRight
+      size={16}
+      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+    />
+  </a>
 
-          <div
-            className="
-              hidden items-center gap-2 rounded-full
-              border border-ink-muted/15
-              bg-accent/5 px-3 py-2
-              lg:flex
-            "
-          >
-            <span className="relative flex h-2 w-2">
-              <span
-                className="
-                  absolute inline-flex h-full w-full
-                  animate-ping rounded-full bg-accent opacity-40
-                "
-              />
+  {/* Theme Switcher: visible on desktop and mobile */}
+  <div className="relative z-[100] flex h-10 w-10 shrink-0 items-center justify-center">
+    <ThemeSwitcher theme={theme} setTheme={setTheme} />
+  </div>
 
-              <span
-                className="
-                  relative inline-flex h-2 w-2
-                  rounded-full bg-accent
-                "
-              />
-            </span>
+  {/* Hamburger: mobile only */}
+  <button
+    type="button"
+    onClick={() => setMobileOpen((previous) => !previous)}
+    aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+    aria-expanded={mobileOpen}
+    aria-controls="mobile-navigation"
+    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-ink-muted/15 bg-accent/5 text-ink transition-all duration-200 hover:border-accent/30 hover:bg-accent/10 md:hidden"
+  >
+    {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+  </button>
+</div>
 
-            <span className="text-[11px] font-semibold text-ink-muted">
-              Open to opportunities
-            </span>
-          </div>
-
-          {/* Hire Me CTA */}
-
-          <a
-            href="#contact"
-            onClick={() => handleNavigation("Contact")}
-            className="
-              group hidden items-center gap-2
-              rounded-full bg-gradient-to-r
-              from-accent to-accent-dark
-              px-4 py-2.5 text-sm font-bold
-              text-white shadow-md
-              transition-all duration-300
-              hover:-translate-y-0.5
-              hover:shadow-lg hover:shadow-accent/20
-              sm:inline-flex
-            "
-          >
-            Hire Me
-
-            <ArrowUpRight
-              size={16}
-              className="
-                transition-transform duration-300
-                group-hover:translate-x-0.5
-                group-hover:-translate-y-0.5
-              "
-            />
-          </a>
-
-          {/* Mobile menu toggle */}
-
-          <button
-            type="button"
-            onClick={() => setMobileOpen((previous) => !previous)}
-            aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
-            className="
-              flex h-10 w-10 items-center justify-center
-              rounded-xl border border-ink-muted/15
-              bg-accent/5 text-ink
-              transition-all duration-200
-              hover:border-accent/30 hover:bg-accent/10
-              sm:hidden
-            "
-          >
-            {mobileOpen ? (
-              <X size={20} />
-            ) : (
-              <Menu size={20} />
-            )}
-          </button>
-        </div>
       </nav>
 
       {/* Mobile backdrop */}
