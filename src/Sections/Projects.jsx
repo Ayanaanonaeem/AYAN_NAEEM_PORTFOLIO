@@ -48,8 +48,8 @@ const projects = [
     "A responsive task management application built with React and Redux for centralized state management, allowing users to add, complete, delete, and manage tasks through a clean and intuitive interface.",
   image: "/projects/redux-todo.png",
   tech: ["React", "Redux", "JavaScript", "Tailwind CSS"],
-  live: "#home",
-  github: "https://github.com/Ayanaanonaeem",
+  live: "https://todo-project-redux-tool-kit.vercel.app/",
+  github: "https://github.com/Ayanaanonaeem/Todo-Project-Redux-tool-kit",
   color: "#8b5cf6",
 },
 {
@@ -61,7 +61,7 @@ const projects = [
   image: "/projects/shopora.png",
   tech: ["React", "JavaScript", "Tailwind CSS"],
   live: "https://shopora-ecommerce-tawny.vercel.app/",
-  github: "#",
+  github: "https://github.com/Ayanaanonaeem/shopora-ecommerce",
   color: "#00D9FF",
 },
 ];
