@@ -1,7 +1,372 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
+
 @import "tailwindcss";
-html,
-body,
-#root {
-  min-height: 100%;
-  background-color: #070b12;
+
+/* ================ THEME CONFIGURATION ================ */
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-surface: var(--surface);
+
+  --color-accent-light: var(--accent-light);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+
+  --font-display: "Sora", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-wave: wave 2s ease-in-out infinite;
+  --animate-morph: morph 8s ease-in-out infinite;
+  --animate-glow: glow 4s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s ease-out both;
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes wave {
+    0%, 60%, 100% {
+      transform: rotate(0deg);
+    }
+
+    10%, 30% {
+      transform: rotate(14deg);
+    }
+
+    20% {
+      transform: rotate(-8deg);
+    }
+
+    40% {
+      transform: rotate(-4deg);
+    }
+
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+
+  @keyframes morph {
+    0%, 100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      opacity: 0.45;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
+
+
+/* ================ GLOBAL BASE ================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+
+    background-color: var(--bg-primary);
+    color: var(--ink);
+
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    overflow-x: clip;
+
+    transition:
+      background-color 0.45s ease,
+      color 0.35s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.035em;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    transition:
+      color 0.25s ease,
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--button-text, #FFFFFF);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+}
+
+
+/* ================ THEME-AWARE COMPONENTS ================ */
+
+@layer components {
+
+  /* ---------- Premium Gradient Text ---------- */
+
+  .text-gradient {
+    color: var(--accent);
+
+    background: var(--gradient);
+    background-size: 200% 200%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+
+  /* ---------- Accent Text ---------- */
+
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .text-muted {
+    color: var(--ink-muted);
+  }
+
+
+  /* ---------- Spotlight Project Cards ---------- */
+
+  .spotlight-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .spotlight-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    border-radius: inherit;
+
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      var(--glow),
+      transparent 70%
+    );
+
+    opacity: 0;
+
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  .spotlight-card:hover {
+    border-color: var(--card-border);
+  }
+
+
+  /* ---------- Soft Glow ---------- */
+
+  .theme-glow {
+    position: absolute;
+    pointer-events: none;
+
+    background: var(--glow);
+    filter: blur(80px);
+    border-radius: 50%;
+
+    animation: glow 5s ease-in-out infinite;
+  }
+
+
+  /* ---------- Morphing Blob ---------- */
+
+  .animate-morph {
+    animation: morph 8s ease-in-out infinite;
+  }
+
+
+  /* ---------- Glass Surface ---------- */
+
+  .glass-surface {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+
+    backdrop-filter: var(--card-blur);
+    -webkit-backdrop-filter: var(--card-blur);
+  }
+
+
+  /* ---------- Smooth Hover Lift ---------- */
+
+  .hover-lift {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+  }
+
+
+  /* ---------- Animated Underline ---------- */
+
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+
+    width: 100%;
+    height: 2px;
+
+    background: var(--gradient);
+    border-radius: 999px;
+
+    transform: scaleX(0);
+    transform-origin: right;
+
+    transition: transform 0.3s ease;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+
+/* ================ REDUCED MOTION ================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Top-to-bottom theme transition */
+
+.theme-wipe-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      color-mix(in srgb, var(--wipe-highlight) 35%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      145deg,
+      var(--wipe-bg),
+      color-mix(in srgb, var(--wipe-bg) 75%, var(--wipe-accent))
+    );
+
+  will-change: clip-path;
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-wipe-overlay {
+    animation-duration: 1ms !important;
+  }
+}
+  
