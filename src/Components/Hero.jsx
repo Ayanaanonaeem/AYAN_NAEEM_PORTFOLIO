@@ -254,7 +254,7 @@ export default function Hero() {
   </a>
 
   <a
-    href="/resume.pdf"
+    href="/projects/AyanCV.pdf"
     download
     className="theme-card inline-flex min-h-[52px] w-full max-w-[280px] items-center justify-center gap-2 rounded-full px-7 py-4 text-sm font-semibold text-ink transition-all duration-300 hover:-translate-y-1 sm:w-auto"
   >
